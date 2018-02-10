@@ -10,7 +10,7 @@ use app\models\Address;
 class AddressController extends CommonController
 {
     public function actionAdd()
-    {
+    {//添加地址
         if (Yii::$app->session['isLogin'] != 1) {
             return $this->redirect(['member/auth']);
         }
