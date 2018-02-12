@@ -12,7 +12,7 @@ class CommonController extends Controller
 {
     public function init()
     {
-        $menu = Category::getMenu();
+        $menu = Category::getMenu();//获取分类
         $this->view->params['menu'] = $menu;
         $data = [];
         $data['products'] = [];
