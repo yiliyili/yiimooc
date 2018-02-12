@@ -42,7 +42,7 @@
                     </div>
                     <a class="close-btn" href="<?php echo yii\helpers\Url::to(['cart/del', 'cartid' => $product['cartid']]) ?>"></a>
                 </div>
-            </div><!-- /.cart-item -->
+            </div><!-- /.cart-item 加出总价-->
 <?php $total += $product['price']*$product['productnum']; ?>
 <?php endforeach; ?>
        </div>

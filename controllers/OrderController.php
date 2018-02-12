@@ -69,12 +69,12 @@ class OrderController extends CommonController
                 }
                 $userid = $usermodel->userid;
                 $ordermodel->userid = $userid;
-                $ordermodel->status = Order::CREATEORDER;
+                $ordermodel->status = Order::CHECKORDER;//用常量表达
                 $ordermodel->createtime = time();
                 if (!$ordermodel->save()) {
                     throw new \Exception();
                 }
-                $orderid = $ordermodel->getPrimaryKey();
+                $orderid = $ordermodel->getPrimaryKey();//获取主键
                 foreach ($post['OrderDetail'] as $product) {
                     $model = new OrderDetail;
                     $product['orderid'] = $orderid;
@@ -83,8 +83,8 @@ class OrderController extends CommonController
                     if (!$model->add($data)) {
                         throw new \Exception();
                     }
-                    Cart::deleteAll('productid = :pid' , [':pid' => $product['productid']]);
-                    Product::updateAllCounters(['num' => -$product['productnum']], 'productid = :pid', [':pid' => $product['productid']]);
+                    Cart::deleteAll('productid = :pid' , [':pid' => $product['productid']]);//删除购物车
+                    Product::updateAllCounters(['num' => -$product['productnum']], 'productid = :pid', [':pid' => $product['productid']]);//商品减少对应的数量
                 }
             }
             $transaction->commit();

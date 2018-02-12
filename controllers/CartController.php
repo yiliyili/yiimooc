@@ -9,7 +9,7 @@ use Yii;
 class CartController extends CommonController
 {
     public function actionIndex()
-    {
+    {//购物车信息
         if (Yii::$app->session['isLogin'] != 1) {
             return $this->redirect(['member/auth']);
         }
@@ -44,13 +44,13 @@ class CartController extends CommonController
         if (Yii::$app->request->isGet) {
             $productid = Yii::$app->request->get("productid");
             $model = Product::find()->where('productid = :pid', [':pid' => $productid])->one();
-            $price = $model->issale ? $model->saleprice : $model->price;
+            $price = $model->issale ? $model->saleprice : $model->price;//拿哪种价格
             $num = 1;
-            $data['Cart'] = ['productid' => $productid, 'productnum' => $num, 'price' => $price, 'userid' => $userid];
+            $data['Cart'] = ['productid' => $productid, 'productnum' => $num, 'price' => $price, 'userid' => $userid];//写入cart的数据
         }
         if (!$model = Cart::find()->where('productid = :pid and userid = :uid', [':pid' => $data['Cart']['productid'], ':uid' => $data['Cart']['userid']])->one()) {
             $model = new Cart;
-        } else {
+        } else {//说明购物车中有这个商品
             $data['Cart']['productnum'] = $model->productnum + $num;
         }
         $data['Cart']['createtime'] = time();

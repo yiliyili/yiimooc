@@ -427,7 +427,7 @@
         function changeNum(cartid, num)
         {
             $.get('<?php echo yii\helpers\Url::to(['cart/mod']) ?>', {'productnum':num, 'cartid':cartid}, function(data){
-                location.reload();
+                location.reload();//重载页面
             });
         }
         var total = parseFloat($("#total span").html());
